@@ -36,7 +36,23 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'oauth_tokens',
+    'm2m_history',
+    'taggit',
+    'twitter_api',
 )
+
+
+INSTALLED_APPS += (
+    'twitterreader',
+)
+
+# oauth-tokens settings     # !!! Remove from here and get through another file
+OAUTH_TOKENS_HISTORY = True     # to keep in DB expired access tokens
+OAUTH_TOKENS_TWITTER_CLIENT_ID = '8124972'     # application ID
+OAUTH_TOKENS_TWITTER_CLIENT_SECRET = 'FyPxiCPeHPtr6dxll6bgRi0xlnQGIKonATxkibv5SakP5jJbIS'     # application secret key
+OAUTH_TOKENS_TWITTER_USERNAME = 'kunalbhagawati'      # user login
+OAUTH_TOKENS_TWITTER_PASSWORD = 'TT1!xfinalydo'      # user password
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

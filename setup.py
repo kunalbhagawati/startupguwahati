@@ -4,11 +4,11 @@ from setuptools import setup
 
 setup(
     # GETTING-STARTED: set your app name:
-    name='StartupGuwahati',
+    name='StartUpGuwahati',
     # GETTING-STARTED: set your app name:
     version='1.0',
     # GETTING-STARTED: set your app description:
-    description='A small platform to bring budding entrepreneurs and hopefull investors of Guwhati together.',
+    description='A small platform to bring budding entrepreneurs and hopefull investors of Guwahati together.',
     # GETTING-STARTED: set author name (your name):
     author='Kunal Bhagawati',
     # GETTING-STARTED: set author name (your name):
