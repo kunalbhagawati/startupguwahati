@@ -1,3 +1,7 @@
+# from django.views.generic import View
+from django.views.generic.base import TemplateView
+from django.http import HttpResponse
+
 # # REST Framework
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -28,4 +32,6 @@ def teapotView(request, potType):
     return Response(response, status=418)
 
 
-def 
+class IndexView(TemplateView):
+    def get(self, request):
+        return HttpResponse("Welcome to StartUpGuwahati!")
