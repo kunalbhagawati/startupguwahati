@@ -26,3 +26,6 @@ def teapotView(request, potType):
 
     response = ' Coffee at your service! ' + potTypes[potType]
     return Response(response, status=418)
+
+
+def 
