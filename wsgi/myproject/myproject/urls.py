@@ -11,5 +11,6 @@ urlpatterns = patterns('',
 
 urlpatterns += patterns('',
     url(r'^$', djangoViews.IndexView.as_view()),
+    url(r'^callback', djangoViews.TWCallbackView.as_view()),
     url(r'^admin/', include(admin.site.urls)),
 )
