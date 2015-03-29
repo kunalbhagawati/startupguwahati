@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
-    # django
+    # # django
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,12 +40,29 @@ INSTALLED_APPS = (
 )
 
 INSTALLED_APPS += (
-    # third party
+    # # third party
     'rest_framework',
+    # 'mongoadmin',
+    # 'mongoengine.django.mongo_auth',
+    'mongonaut',
+    'foundation',
 )
 
+# MONGOADMIN_OVERRIDE_ADMIN = True
+# AUTHENTICATION_BACKENDS = ( 
+#            'mongoengine.django.auth.MongoEngineBackend',
+#  )
+# AUTH_USER_MODEL = 'mongo_auth.MongoUser'
+# MONGOENGINE_USER_DOCUMENT = 'mongoengine.django.auth.User'
+
+# from mongoengine import connect
+# MONGO_DATABASE_NAME = 'indiaproperty'
+# MONGO_HOST = '127.0.0.1'
+# MONGO_PORT = 27017
+# connect(MONGO_DATABASE_NAME, host=MONGO_HOST, port=MONGO_PORT)
 
 INSTALLED_APPS += (
+    'StartUpGuwahati',
     'twitterreader',
 )
 
@@ -59,6 +76,9 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
+
+# SESSION_ENGINE = 'mongoengine.django.sessions'
+# SESSION_SERIALIZER = 'mongoengine.django.sessions.BSONSerializer'
 
 # GETTING-STARTED: change 'StartUpGuwahati' to your project name:
 ROOT_URLCONF = 'StartUpGuwahati.urls'
