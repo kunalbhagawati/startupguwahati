@@ -1,5 +1,5 @@
 """
-Django settings for myproject project.
+Django settings for StartUpGuwahati project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
@@ -49,12 +49,6 @@ INSTALLED_APPS += (
     'twitterreader',
 )
 
-# oauth-tokens settings     # !!! Remove from here and get through another file
-OAUTH_TOKENS_HISTORY = True     # to keep in DB expired access tokens
-OAUTH_TOKENS_TWITTER_CLIENT_ID = '8124972'     # application ID
-OAUTH_TOKENS_TWITTER_CLIENT_SECRET = 'FyPxiCPeHPtr6dxll6bgRi0xlnQGIKonATxkibv5SakP5jJbIS'     # application secret key
-OAUTH_TOKENS_TWITTER_USERNAME = 'kunalbhagawati'      # user login
-OAUTH_TOKENS_TWITTER_PASSWORD = 'TT1!xfinalydo'      # user password
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -66,10 +60,10 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-# GETTING-STARTED: change 'myproject' to your project name:
-ROOT_URLCONF = 'myproject.urls'
+# GETTING-STARTED: change 'StartUpGuwahati' to your project name:
+ROOT_URLCONF = 'StartUpGuwahati.urls'
 
-WSGI_APPLICATION = 'myproject.wsgi.application'
+WSGI_APPLICATION = 'StartUpGuwahati.wsgi.application'
 
 
 # Database

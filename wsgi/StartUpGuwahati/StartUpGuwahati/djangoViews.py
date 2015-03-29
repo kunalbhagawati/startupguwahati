@@ -8,10 +8,3 @@ class IndexView(View):
 
     def get(self, request):
         return HttpResponse("Welcome to StartUpGuwahati!")
-
-
-class TWCallbackView(View):
-    # template_name = "index.html"
-
-    def get(self, request):
-        return HttpResponse("Welcome to StartUpGuwahati!")
