@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from . import restViews, djangoViews
@@ -17,3 +18,4 @@ urlpatterns += patterns('',
     (r'^mongonaut/', include('mongonaut.urls')),
     (r'^foundation/', include('foundation.urls')),
 )
+

@@ -1,5 +1,5 @@
 from django.views.generic import View
-from django.views.generic.base import TemplateView
+# from django.views.generic.base import TemplateView
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 
