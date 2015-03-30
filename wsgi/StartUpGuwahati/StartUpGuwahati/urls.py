@@ -12,6 +12,10 @@ urlpatterns = patterns('',
     ), ), )
 
 urlpatterns += patterns('',
+    (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+)
+
+urlpatterns += patterns('',
     url(r'^$', djangoViews.IndexView.as_view()),
     url(r'^twitterreader', include('twitterreader.djangoUrls')),
     url(r'^admin/', include(admin.site.urls)),
