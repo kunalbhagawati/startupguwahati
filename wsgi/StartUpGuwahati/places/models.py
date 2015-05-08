@@ -16,13 +16,6 @@ def distance(origin, destination):
 
     return d
 
-PLACE_TYPES = (
-    ('FR', 'Freshman'),
-    ('SO', 'Sophomore'),
-    ('JR', 'Junior'),
-    ('SR', 'Senior'),
-    )
-
 
 class Country(models.Model):
     country_name = models.CharField(max_length=50)
@@ -68,7 +61,7 @@ class Locality(models.Model):
 
 
 class Place(models.Model):
-    """Model to hold information about a place."""
+    """Abstract model to hold information about a place."""
 
     place_name = models.CharField(max_length=50)
     latitude = models.DecimalField(null=True, max_digits=9, decimal_places=2)
@@ -76,13 +69,29 @@ class Place(models.Model):
     street = models.CharField(null=True, max_length=100)
     locality = models.ForeignKey(Locality, on_delete=models.PROTECT)
 
-    place_type = models.IntegerField(choices=PLACE_TYPES)
     is_place_covered = models.NullBooleanField(null=True)
-    is_place_private = models.NullBooleanField(null=True)
 
     def __str__(self):
         return "{0}@({1}, {2})".format(
                 self.place_name, self.latitude, self.longitude)
+
+    class Meta:
+        abstract = True
+
+
+class PrivatePlace(Place):
+    """Model to hold information about a private place."""
+
+
+class PublicPlace(Place):
+    """Model to hold information about a public place."""
+
+    PLACE_TYPES = (
+        (1, 'Hangout Spot'),
+        (2, 'Free'),
+        )
+
+    place_type = models.IntegerField(choices=PLACE_TYPES)
 
 
 # class PlaceFilters(models.Model):
@@ -94,7 +103,7 @@ class Place(models.Model):
 #         abstract = True
 
 
-class PlaceQualities(models.Model):
-    """Master for the qualities a place can have."""
+# class PlaceQualities(models.Model):
+#     """Master for the qualities a place can have."""
 
-    quality_name = models.ForeignKey()
+#     quality_name = models.ForeignKey()
