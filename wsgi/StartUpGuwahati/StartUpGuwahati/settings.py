@@ -36,34 +36,22 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',  
+    'django.contrib.staticfiles',
 )
 
 INSTALLED_APPS += (
     # # third party
     'rest_framework',
-    # 'mongoadmin',
-    # 'mongoengine.django.mongo_auth',
-    'mongonaut',
+    'django_filters',
+    'debug_toolbar',
     'foundation',
 )
 
-# MONGOADMIN_OVERRIDE_ADMIN = True
-# AUTHENTICATION_BACKENDS = ( 
-#            'mongoengine.django.auth.MongoEngineBackend',
-#  )
-# AUTH_USER_MODEL = 'mongo_auth.MongoUser'
-# MONGOENGINE_USER_DOCUMENT = 'mongoengine.django.auth.User'
-
-# from mongoengine import connect
-# MONGO_DATABASE_NAME = 'indiaproperty'
-# MONGO_HOST = '127.0.0.1'
-# MONGO_PORT = 27017
-# connect(MONGO_DATABASE_NAME, host=MONGO_HOST, port=MONGO_PORT)
 
 INSTALLED_APPS += (
     'StartUpGuwahati',
     'twitterreader',
+    'places',
 )
 
 
@@ -75,12 +63,17 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
+
+INTERNAL_IPS = ('127.0.0.1', )
+
+SHOW_TOOLBAR_CALLBACK = lambda x: True    # force show debug toolbar
+
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.auth.context_processors.auth",
     "django.core.context_processors.debug",
-    "django.core.context_processors.i18n",
     "django.core.context_processors.media",
     "django.core.context_processors.static",
     "django.core.context_processors.tz",
@@ -92,9 +85,6 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
 )
 
-# SESSION_ENGINE = 'mongoengine.django.sessions'
-# SESSION_SERIALIZER = 'mongoengine.django.sessions.BSONSerializer'
-
 ROOT_URLCONF = 'StartUpGuwahati.urls'
 
 WSGI_APPLICATION = 'StartUpGuwahati.wsgi.application'
@@ -105,10 +95,13 @@ WSGI_APPLICATION = 'StartUpGuwahati.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        # GETTING-STARTED: change 'db.sqlite3' to your sqlite3 database:
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'startupguwahati',
+        'USER': 'indiaproperty',
+        'PASSWORD': 'ip@123',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+    },
 }
 
 # Internationalization
@@ -116,9 +109,9 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
-USE_I18N = True
+USE_I18N = False
 
 USE_L10N = True
 
