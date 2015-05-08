@@ -77,6 +77,8 @@ class Place(models.Model):
     locality = models.ForeignKey(Locality, on_delete=models.PROTECT)
 
     place_type = models.IntegerField(choices=PLACE_TYPES)
+    is_place_covered = models.NullBooleanField(null=True)
+    is_place_private = models.NullBooleanField(null=True)
 
     def __str__(self):
         return "{0}@({1}, {2})".format(
