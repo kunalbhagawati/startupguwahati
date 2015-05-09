@@ -134,3 +134,18 @@ MEDIA_URL = '/media/'
 ########## END MEDIA CONFIGURATION
 
 GOOGLE_API_KEY = 'AIzaSyDIuWeFqS6bpaLAtgAtCkYCETkD6Mvii7g'
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': (
+            'rest_framework.filters.DjangoFilterBackend',
+            'rest_framework.filters.SearchFilter',),
+
+    # 'DEFAULT_THROTTLE_CLASSES': (
+    #     'rest_framework.throttling.AnonRateThrottle',
+    #     'rest_framework.throttling.UserRateThrottle'
+    # ),
+    # 'DEFAULT_THROTTLE_RATES': {
+    #     'anon': '100/min',
+    #     'user': '100/min'
+    # }
+}

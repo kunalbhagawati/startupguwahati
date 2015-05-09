@@ -20,6 +20,7 @@ class PlaceFilter(django_filters.FilterSet):
         fields = {
             'place_name': ['exact'],
             'locality': ['exact'],
+            'locality__city': ['exact'],
             'is_covered': ['exact'],
             'is_private': ['exact'],
             }
