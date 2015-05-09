@@ -9,6 +9,13 @@ from .models import *
 from users import serializers as uSerializers
 
 
+class PlaceImagesSerializer(serializers.ModelSerializer):
+    """Mapping between a place and its images."""
+
+    class Meta:
+        model = PlaceImages
+
+
 class PublicPlaceAttributesSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -34,6 +41,7 @@ class PlaceSerializer(serializers.ModelSerializer):
             slug_field='facility_name',
             queryset=PlaceFacilities.objects.all(),
          )
+    placeimages_set = serializers.PlaceImagesSerializer(read_only=True)
 
     # def get_attributes(self, obj):
     #     # if obj.is_private:
@@ -74,12 +82,6 @@ class PlaceSerializer(serializers.ModelSerializer):
                 'placeimages_set', 'privateplaceattributes',
                 'publicplaceattributes', 'facilities',)
 
-
-class PlaceImagesSerializer(serializers.ModelSerializer):
-    """Mapping between a place and its images."""
-
-    class Meta:
-        model = PlaceImages
 
 # class MappingHomepagebannerLocaleSerializer(serializers.ModelSerializer):
 #     """Serializes the homepage banners."""

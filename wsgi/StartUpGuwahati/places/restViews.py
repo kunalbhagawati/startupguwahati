@@ -75,7 +75,7 @@ class PlaceUpdate(generics.RetrieveUpdateDestroyAPIView):
     #     rConn.hdel(hashName, dId)
 
 
-class PlaceImagesCreate(generics.CreateAPIView):
+class PlaceImagesCreate(generics.ListCreateAPIView):
 
     queryset = models.PlaceImages.objects.all()
     serializer_class = serializers.PlaceImagesSerializer
