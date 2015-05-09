@@ -107,7 +107,7 @@ if ON_OPENSHIFT:
             'NAME': 'django',
             'USER': 'adminuTunmIY',
             'PASSWORD': 'pG5rXItjiX9w',
-            'HOST': '127.10.122.129',
+            'HOST': '127.10.122.130',
             'PORT': '3306',
         }
     }
