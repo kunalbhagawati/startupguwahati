@@ -32,13 +32,16 @@ class PlaceSerializer(serializers.ModelSerializer):
 
         if obj.is_private:
             if hasattr(obj, 'privateplaceattributes'):
-                return {'owner': (uSerializers
+                return {
+                    'owner': (uSerializers
                         .UserSerializer(obj.privateplaceattributes.owner)
                         .data)
-                        }
+                    }
         else:
             if hasattr(obj, 'publicplaceattributes'):
-                return obj.publicplaceattributes.place_type
+                return {
+                    'place_type': obj.publicplaceattributes.place_type
+                    }
 
         return None
 
