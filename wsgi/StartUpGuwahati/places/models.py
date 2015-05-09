@@ -1,10 +1,12 @@
 """Models for the places APIs."""
 
 from django.db import models
+from django.conf.settings import MEDIA_ROOT
 
 from users.models import User
 
 from .lib import commonfunctions as cf
+
 
 class Country(models.Model):
     country_name = models.CharField(max_length=50)
@@ -109,17 +111,22 @@ class PublicPlace(Place):
     place_type = models.IntegerField(choices=PLACE_TYPES)
 
 
-def get_image_name(inst, filename):
-    print(filename)
-    dirName = 'homepagebanners'
-    ext = filename.split(".")[-1]
-    localeTypeName = inst.get_localetype_display()
-    return "{0}/{1}_{2}.{3}".format(
-            dirName, localeTypeName, inst.localeid, ext)
+# def get_image_name(inst, filename):
+#     """Gets the filename in the format."""
+
+#     dirName = 'homepagebanners'
+#     ext = filename.split(".")[-1]
+#     localeTypeName = inst.get_localetype_display()
+#     return "{0}/{1}/{2}_{3}.{4}".format(
+#             MEDIA_ROOT,
+#             dirName,
+#             localeTypeName,
+#             inst.localeid,
+#             ext)
 
 
 class PlaceImages(models.Model):
     """Mapping between a place and its images."""
 
-    image = models.ImageField(upload_to=get_image_name)
+    image = models.ImageField(upload_to='places')
     place = models.ForeignKey(Place)
