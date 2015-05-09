@@ -19,3 +19,9 @@ def distance(origin, destination):
     d = RADIUS * c
 
     return d
+
+
+def get_lat_long_from_address():
+    """Gets the lat and long from a given place."""
+
+    pass

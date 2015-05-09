@@ -2,6 +2,8 @@
 
 from django.db import models
 
+from .lib import commonfunctions as cf
+
 
 class Country(models.Model):
     country_name = models.CharField(max_length=50)
