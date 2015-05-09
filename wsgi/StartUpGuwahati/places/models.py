@@ -104,9 +104,3 @@ class PublicPlace(Place):
         )
 
     place_type = models.IntegerField(choices=PLACE_TYPES)
-
-
-# class PlaceQualities(models.Model):
-#     """Master for the qualities a place can have."""
-
-#     quality_name = models.ForeignKey()
