@@ -80,8 +80,22 @@ class Place(models.Model):
     def get_places_nearby(self, radius=2):
         """Gets all places which are at a distance of n kms."""
 
-        # searchLat =
-        pass
+        res = self.get_latlong()
+        if not res:
+            return False
+
+        latitude, longitude = res
+
+        # get bounding box first
+        latInc, latDec, longInc, longDec = cf.get_bounding_box(
+                (latitude, longitude), radius)
+        # get all models inside the bounding box.
+        Place.objects.exclude(latitude=None, longitude=None).filter(
+                latitude__gte=latDec,
+                latitude__lte=latInc,
+                longitude__gte=longDec,
+                longitude__lte=longInc,
+                )
 
     def get_latlong(self):
         """Gets the lat long for the place.

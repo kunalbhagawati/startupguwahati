@@ -3,6 +3,7 @@
 import math
 import requests
 import geopy
+from geopy import exc as geopyExc
 from geopy.distance import VincentyDistance
 from geopy.distance import vincenty
 
@@ -36,12 +37,27 @@ def get_bounding_box(origin, distance):
     longInc = offset_latlong(origin, distance, 90)[1]
     longDec = offset_latlong(origin, distance, 270)[1]
 
-    return (latInc, longInc, latDec, longDec)
+    return (latInc, latDec, longInc, longDec)
 
 
-def get_coords_from_address(address):
+def get_coords_from_address(address, region=None):
     """Gets the lat and long from a given place. Hits google directly."""
 
+    # attempt open maps first
+    try:
+        d = geopy.Nominatim(timeout=10)
+        qArgs = {
+            'street': address
+        }
+        if region:
+            qArgs['state'] = region
+        res = d.geocode(query=qArgs)
+        if res:
+            return (res.latitude, res.longitude)
+    except geopyExc.GeocoderTimedOut:
+        pass
+
+    # TODO convert below to geopy
     url = "https://maps.googleapis.com/maps/api/geocode/json?address={0}&key={1}".format(address, settings.GOOGLE_API_KEY)
     res = requests.get(url)
     if res.status_code//100 == 5:
