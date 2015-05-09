@@ -40,8 +40,8 @@ class Locality(models.Model):
     city = models.ForeignKey(
             City,
             on_delete=models.PROTECT)
-    latitude = models.DecimalField(null=True, max_digits=9, decimal_places=2)
-    longitude = models.DecimalField(null=True, max_digits=9, decimal_places=2)
+    latitude = models.DecimalField(null=True, max_digits=9, decimal_places=7)
+    longitude = models.DecimalField(null=True, max_digits=9, decimal_places=7)
     parent_locality = models.ForeignKey(
             'self',
             null=True,
@@ -66,8 +66,8 @@ class Place(models.Model):
     """Model to hold information about a place."""
 
     place_name = models.CharField(max_length=50)
-    latitude = models.DecimalField(null=True, max_digits=9, decimal_places=2)
-    longitude = models.DecimalField(null=True, max_digits=9, decimal_places=2)
+    latitude = models.DecimalField(null=True, max_digits=9, decimal_places=7)
+    longitude = models.DecimalField(null=True, max_digits=9, decimal_places=7)
     street = models.CharField(null=True, max_length=100)
     locality = models.ForeignKey(Locality, on_delete=models.PROTECT)
     is_covered = models.NullBooleanField(null=True)
@@ -185,17 +185,3 @@ class PlaceImages(models.Model):
 
     image = models.ImageField(upload_to='places')
     place = models.ForeignKey(Place)
-
-
-# for loc_name in models.Locality.objects.all().values_list('locality_name', flat=True).distinct():
-#     try:
-#         models.Locla
-
-uniqueLocs = set()
-for loc in models.Locality.objects.all():
-    try:
-        l = models.Locality.objects.get(locality_name=loc.locality_name, city=loc.city.pk)
-        uniqueLocs.add(l)
-    except Exception as e:
-        # print("{0} for id: {1}; locality_name: {2}; city: {3}".format(e, loc.pk, loc.locality_name, loc.city.pk))
-        pass
