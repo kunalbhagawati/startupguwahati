@@ -63,7 +63,7 @@ class PlaceFacilities(models.Model):
 
 
 class Place(models.Model):
-    """Abstract model to hold information about a place."""
+    """Model to hold information about a place."""
 
     place_name = models.CharField(max_length=50)
     latitude = models.DecimalField(null=True, max_digits=9, decimal_places=2)
@@ -72,6 +72,8 @@ class Place(models.Model):
     locality = models.ForeignKey(Locality, on_delete=models.PROTECT)
     is_place_covered = models.NullBooleanField(null=True)
     is_place_private = models.BooleanField(default=True)
+    createdon = models.DateTimeField(auto_now_add=True, null=True)
+    modifiedon = models.DateTimeField(auto_now=True, null=True)
 
     facilities = models.ManyToManyField(PlaceFacilities)
 
@@ -126,9 +128,10 @@ class Place(models.Model):
 
 
 class PlaceAttributes(models.Model):
-    """Model to define the common functions for the models."""
+    """Abstract model to define the common functions for the models."""
 
-    pass
+    class Meta:
+        abstract = True
 
 
 class PrivatePlaceAttributes(PlaceAttributes):
