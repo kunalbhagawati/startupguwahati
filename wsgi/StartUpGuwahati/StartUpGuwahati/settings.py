@@ -121,6 +121,14 @@ else:
             'HOST': '127.0.0.1',
             'PORT': '3306',
         },
+        'iplisting': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'iplisting',
+            'USER': 'indiaproperty',
+            'PASSWORD': 'ip@123',
+            'HOST': '127.0.0.1',
+            'PORT': '3306',
+        },
     }
 
 # Internationalization
