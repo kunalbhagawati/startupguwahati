@@ -41,7 +41,7 @@ class PlaceSerializer(serializers.ModelSerializer):
             slug_field='facility_name',
             queryset=PlaceFacilities.objects.all(),
          )
-    placeimages_set = serializers.PlaceImagesSerializer(read_only=True)
+    placeimages_set = PlaceImagesSerializer(read_only=True)
 
     # def get_attributes(self, obj):
     #     # if obj.is_private:
