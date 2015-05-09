@@ -82,7 +82,7 @@ class Place(models.Model):
 
         pass
 
-    def get_latlong(self,):
+    def get_latlong(self):
         """Gets the lat long for the place.
         If lat long is not available, then queries its localityid.
         If the locality id is not available, queries google geodata."""
@@ -102,8 +102,7 @@ class Place(models.Model):
                 return False
 
             latLongs = tuple(latLongs)
-            latitude = latLongs[0][0]
-            longitude = latLongs[0][1]
+            latitude, longitude = latLongs[0]
 
         return (latitude, longitude)
 
@@ -115,12 +114,12 @@ class Place(models.Model):
         if not self.latitude or self.longitude:
             latLongs = cf.get_coords_from_address(self.locality.locality_name)
             if not latLongs:
-                raise Exception("Could not find lat long for "
-                        "locality: {0}".format(self.locality))
+                # raise Exception("Could not find lat long for "
+                        # "locality: {0}".format(self.locality))
+                pass
             else:
                 latLongs = tuple(latLongs)
-                self.latitude = latLongs[0][0]
-                self.longitude = latLongs[0][1]
+                self.latitude, self.longitude = latLongs[0]
 
         super().save(*args, **kwargs)
 
@@ -165,19 +164,6 @@ class PublicPlaceAttributes(PlaceAttributes):
             raise Exception("Cannot map a private place "
                     "to have public attributes. (Place: {0})"
                     .format(self.place.pk))
-
-# def get_image_name(inst, filename):
-#     """Gets the filename in the format."""
-
-#     dirName = 'homepagebanners'
-#     ext = filename.split(".")[-1]
-#     localeTypeName = inst.get_localetype_display()
-#     return "{0}/{1}/{2}_{3}.{4}".format(
-#             MEDIA_ROOT,
-#             dirName,
-#             localeTypeName,
-#             inst.localeid,
-#             ext)
 
 
 class PlaceImages(models.Model):
