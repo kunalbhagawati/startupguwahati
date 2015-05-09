@@ -2,8 +2,9 @@
 
 from django.db import models
 
-from .lib import commonfunctions as cf
+from users.models import User
 
+from .lib import commonfunctions as cf
 
 class Country(models.Model):
     country_name = models.CharField(max_length=50)
@@ -94,7 +95,7 @@ class Place(models.Model):
 class PrivatePlace(Place):
     """Model to hold information about a private place."""
 
-    owner = models.IntegerField()   # set to foreign key later
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class PublicPlace(Place):
@@ -106,3 +107,19 @@ class PublicPlace(Place):
         )
 
     place_type = models.IntegerField(choices=PLACE_TYPES)
+
+
+def get_image_name(inst, filename):
+    print(filename)
+    dirName = 'homepagebanners'
+    ext = filename.split(".")[-1]
+    localeTypeName = inst.get_localetype_display()
+    return "{0}/{1}_{2}.{3}".format(
+            dirName, localeTypeName, inst.localeid, ext)
+
+
+class PlaceImages(models.Model):
+    """Mapping between a place and its images."""
+
+    image = models.ImageField(upload_to=get_image_name)
+    place = models.ForeignKey(Place)
