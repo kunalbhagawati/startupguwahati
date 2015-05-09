@@ -70,8 +70,8 @@ class Place(models.Model):
     longitude = models.DecimalField(null=True, max_digits=9, decimal_places=2)
     street = models.CharField(null=True, max_length=100)
     locality = models.ForeignKey(Locality, on_delete=models.PROTECT)
-    is_place_covered = models.NullBooleanField(null=True)
-    is_place_private = models.BooleanField(default=True)
+    is_covered = models.NullBooleanField(null=True)
+    is_private = models.BooleanField(default=True)
     createdon = models.DateTimeField(auto_now_add=True, null=True)
     modifiedon = models.DateTimeField(auto_now=True, null=True)
 
@@ -141,7 +141,7 @@ class PrivatePlaceAttributes(PlaceAttributes):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def save(self):
-        if not self.place.is_place_private:
+        if not self.place.is_private:
             raise Exception("Cannot map a public place "
                     "to have private attributes. (Place: {0})"
                     .format(self.place.pk))
@@ -159,7 +159,7 @@ class PublicPlaceAttributes(PlaceAttributes):
     place_type = models.IntegerField(choices=PLACE_TYPES)
 
     def save(self):
-        if not self.place.is_place_private:
+        if not self.place.is_private:
             raise Exception("Cannot map a private place "
                     "to have public attributes. (Place: {0})"
                     .format(self.place.pk))

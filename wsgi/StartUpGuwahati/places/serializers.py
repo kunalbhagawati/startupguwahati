@@ -8,10 +8,17 @@ from rest_framework import serializers
 from .models import *
 
 
-class PlaceSerializer(serializers.ModelSerializer):
+# class PlaceSerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = Place
+#     attributes = serializers.SerializerMethodField()
+
+#     def get_attributes(self, obj):
+#         # if self.is_private
+#         invRows = obj.mappinghomepagemoduleinventoryfields_set.all()
+#         return dict([(i.fieldid.fieldname, i.fieldvalue) for i in invRows])
+
+#     class Meta:
+#         model = Place
 
 
 # class MasterHomepagemoduleSerializer(serializers.ModelSerializer):
