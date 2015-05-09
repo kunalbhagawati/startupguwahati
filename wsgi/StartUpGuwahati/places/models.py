@@ -124,8 +124,11 @@ class Place(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return "{0}@({1}, {2})".format(
-                self.place_name, self.latitude, self.longitude)
+        return "{0}@{1} ({2}, {3})".format(
+                self.place_name,
+                self.locality.locality_name,
+                self.latitude,
+                self.longitude)
 
 
 class PlaceAttributes(models.Model):
