@@ -183,5 +183,5 @@ class PublicPlaceAttributes(PlaceAttributes):
 class PlaceImages(models.Model):
     """Mapping between a place and its images."""
 
-    image = models.ImageField(upload_to='places')
     place = models.ForeignKey(Place)
+    image = models.ImageField(upload_to='places')

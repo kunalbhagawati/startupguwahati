@@ -36,14 +36,16 @@ class PlacesList(generics.ListCreateAPIView):
     filter_class = PlaceFilter
     search_fields = ('place_name', )
 
-    # def perform_create(self, serializer):
-    #     """Saves the owner or the property type, as per the request."""
+    def perform_create(self, serializer):
+        """Saves the owner or the property type, as per the request."""
 
-    #     # first remove
-        
-    #     # placeObj = serializer.save()
-    #     # placeObjSerialized = serializers.PlaceSerializer(placeObj).data
-    #     # rConn.hset(hashName, placeObj.pk, json.dumps(dObjSerialized))
+        # first remove the
+        # serializer.data.pop()
+        pass
+
+        # placeObj = serializer.save()
+        # placeObjSerialized = serializers.PlaceSerializer(placeObj).data
+        # rConn.hset(hashName, placeObj.pk, json.dumps(dObjSerialized))
 
 
 class PlaceUpdate(generics.RetrieveUpdateDestroyAPIView):
@@ -71,3 +73,15 @@ class PlaceUpdate(generics.RetrieveUpdateDestroyAPIView):
     #     dId = instance.pk
     #     instance.delete()
     #     rConn.hdel(hashName, dId)
+
+
+class PlaceImagesCreate(generics.CreateAPIView):
+
+    queryset = models.Place.objects.all()
+    serializer_class = serializers.PlaceSerializer
+
+
+class PlaceImagesUpdate(generics.RetrieveUpdateDestroyAPIView):
+
+    queryset = models.Place.objects.all()
+    serializer_class = serializers.PlaceSerializer

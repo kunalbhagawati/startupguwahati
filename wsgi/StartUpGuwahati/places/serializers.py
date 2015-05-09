@@ -17,7 +17,7 @@ class PublicPlaceAttributesSerializer(serializers.ModelSerializer):
 
 class PrivatePlaceAttributesSerializer(serializers.ModelSerializer):
 
-    # owner = uSerializers.UserSerializer(read_only=True)
+    owner = uSerializers.UserSerializer(read_only=True)
 
     class Meta:
         model = PrivatePlaceAttributes
@@ -69,7 +69,17 @@ class PlaceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Place
+        fields = ('place_name', 'latitude', 'longitude', 'street', 'locality',
+                'is_covered', 'is_private', 'createdon', 'modifiedon',
+                'placeimages_set', 'privateplaceattributes',
+                'publicplaceattributes', 'facilities',)
 
+
+class PlaceImagesSerializer(serializers.ModelSerializer):
+    """Mapping between a place and its images."""
+
+    class Meta:
+        model = PlaceImages
 
 # class MappingHomepagebannerLocaleSerializer(serializers.ModelSerializer):
 #     """Serializes the homepage banners."""
