@@ -1,7 +1,7 @@
 """Models for the places APIs."""
 
 from django.db import models
-from django.conf.settings import MEDIA_ROOT
+from django.conf import settings
 
 from users.models import User
 
@@ -71,6 +71,7 @@ class Place(models.Model):
     street = models.CharField(null=True, max_length=100)
     locality = models.ForeignKey(Locality, on_delete=models.PROTECT)
     is_place_covered = models.NullBooleanField(null=True)
+    is_place_private = models.BooleanField(required=True)
 
     facilities = models.ManyToManyField(PlaceFacilities)
 
@@ -94,13 +95,26 @@ class Place(models.Model):
         abstract = True
 
 
-class PrivatePlace(Place):
+class PlaceAttributes(models.Models):
+    """Model to define the common functions for the models."""
+
+    pass
+
+
+class PrivatePlaceAttributes(PlaceAttributes):
     """Model to hold information about a private place."""
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    place = models.ForeignKey(Place)
+
+    def save(self):
+        if not self.place.is_place_private:
+            raise Exception("Cannot map a public place "
+                    "to have private attributes. (Place: {0})"
+                    .format(self.place.pk))
 
 
-class PublicPlace(Place):
+class PublicPlaceAttributes(PlaceAttributes):
     """Model to hold information about a public place."""
 
     PLACE_TYPES = (
@@ -109,7 +123,13 @@ class PublicPlace(Place):
         )
 
     place_type = models.IntegerField(choices=PLACE_TYPES)
+    place = models.ForeignKey(Place)
 
+    def save(self):
+        if not self.place.is_place_private:
+            raise Exception("Cannot map a private place "
+                    "to have public attributes. (Place: {0})"
+                    .format(self.place.pk))
 
 # def get_image_name(inst, filename):
 #     """Gets the filename in the format."""
