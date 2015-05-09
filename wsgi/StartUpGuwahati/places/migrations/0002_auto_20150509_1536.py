@@ -7,15 +7,14 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0001_initial'),
         ('places', '0001_initial'),
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='privateplace',
-            name='owner',
-            field=models.ForeignKey(to='users.User', default=1),
-            preserve_default=False,
+        migrations.AlterField(
+            model_name='placefacilities',
+            name='parent',
+            field=models.ForeignKey(to='places.PlaceFacilities', null=True),
+            preserve_default=True,
         ),
     ]

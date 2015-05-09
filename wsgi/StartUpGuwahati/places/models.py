@@ -55,7 +55,7 @@ class PlaceFacilities(models.Model):
     """Facilities for a place."""
 
     facility_name = models.CharField(max_length=100)
-    parent = models.ForeignKey('self', on_delete=models.CASCADE)
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
 
 
 # class PlaceFacilitiesMap(models.Model):
@@ -137,8 +137,8 @@ class PlaceAttributes(models.Model):
 class PrivatePlaceAttributes(PlaceAttributes):
     """Model to hold information about a private place."""
 
+    place = models.OneToOneField(Place, primary_key=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    place = models.ForeignKey(Place)
 
     def save(self):
         if not self.place.is_place_private:
@@ -155,8 +155,8 @@ class PublicPlaceAttributes(PlaceAttributes):
         (2, 'Free'),
         )
 
+    place = models.OneToOneField(Place, primary_key=True)
     place_type = models.IntegerField(choices=PLACE_TYPES)
-    place = models.ForeignKey(Place)
 
     def save(self):
         if not self.place.is_place_private:
