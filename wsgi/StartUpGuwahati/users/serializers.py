@@ -6,37 +6,12 @@ from rest_framework import serializers
 
 # homepage module
 from .models import *
-from users import serializers as uSerializers
 
 
-class PlaceSerializer(serializers.ModelSerializer):
-
-    attributes = serializers.SerializerMethodField()
-
-    def get_attributes(self, obj):
-        # if obj.is_private:
-        #     pType = private
-        # else:
-        #     pType = public
-
-        # if hasattr(obj, '{0}placeattributes'.format(pType)):
-        #     return dict
-        # else:
-        #     return None
-
-        if obj.is_private:
-            if hasattr(obj, 'privateplaceattributes'):
-                return (uSerializers
-                        .UserSerializer(obj.privateplaceattributes.owner)
-                        .data)
-        else:
-            if hasattr(obj, 'publicplaceattributes'):
-                return obj.publicplaceattributes.place_type
-
-        return None
+class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Place
+        model = User
 
 
 # class MasterHomepagemoduleSerializer(serializers.ModelSerializer):
