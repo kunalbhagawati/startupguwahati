@@ -18,7 +18,7 @@ class PlaceFilter(django_filters.FilterSet):
     class Meta:
         model = models.Place
         fields = {
-            'place_name': ['exact'],
+            'place_name': ['iexact'],
             'locality': ['exact'],
             'locality__city': ['exact'],
             'is_covered': ['exact'],
@@ -26,7 +26,7 @@ class PlaceFilter(django_filters.FilterSet):
             }
 
 
-class PlacesList(generics.ListCreateAPIView):
+class PlaceList(generics.ListCreateAPIView):
     """List all places or create a new one."""
 
     queryset = models.Place.objects.all()
