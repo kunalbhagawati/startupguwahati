@@ -48,7 +48,7 @@ class Locality(models.Model):
             on_delete=models.SET_NULL)
 
     def __str__(self):
-        return self.locality_name
+        return "{0}. {1}".format(self.pk, self.locality_name)
 
 
 class PlaceFacilities(models.Model):
@@ -95,14 +95,30 @@ class Place(models.Model):
 
         if not latitude or not longitude:
             # hit google
-            cf.get_lat_long_from_address
+            latLongs = cf.get_coords_from_address(self.locality.locality_name)
+            if not latLongs:
+                return False
+
+            latLongs = tuple(latLongs)
+            latitude = latLongs[0][0]
+            longitude = latLongs[0][1]
+
+        return (latitude, longitude)
 
     def save(self):
         """If lat long is not passed, then try to get it from the locality.
         Likewise, if locality is not passed, get it from the latitude
         and logitude."""
 
-        pass
+        if not self.latitude or self.longitude:
+            latLongs = cf.get_coords_from_address(self.locality.locality_name)
+            if not latLongs:
+                raise Exception("Could not find lat long for "
+                        "locality: {0}".format(self.locality))
+            else:
+                latLongs = tuple(latLongs)
+                self.latitude = latLongs[0][0]
+                self.longitude = latLongs[0][1]
 
     def __str__(self):
         return "{0}@({1}, {2})".format(

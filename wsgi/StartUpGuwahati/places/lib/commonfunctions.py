@@ -23,7 +23,7 @@ def distance(origin, destination):
     return d
 
 
-def get_lat_long_from_address(address):
+def get_coords_from_address(address):
     """Gets the lat and long from a given place. Hits google directly."""
 
     url = "https://maps.googleapis.com/maps/api/geocode/json?address={0}&key={1}".format(address, settings.GOOGLE_API_KEY)
@@ -43,4 +43,6 @@ def get_lat_long_from_address(address):
         location = pDict['geometry']['location']
         latitude = location['lat']
         longitude = location['lng']
-        latlongs.add({latitude, longitude})
+        latlongs.add((latitude, longitude))
+
+    return latlongs
