@@ -13,6 +13,11 @@ import os
 DJ_PROJECT_DIR = os.path.dirname(__file__)
 BASE_DIR = os.path.dirname(DJ_PROJECT_DIR)
 
+# a setting to determine whether we are running on OpenShift
+ON_OPENSHIFT = False
+if 'OPENSHIFT_REPO_DIR' in os.environ:
+    ON_OPENSHIFT = True
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
@@ -93,17 +98,48 @@ WSGI_APPLICATION = 'StartUpGuwahati.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'startupguwahati',
-        'USER': 'indiaproperty',
-        'PASSWORD': 'ip@123',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-    },
-}
+if ON_OPENSHIFT:
+    # os.environ['OPENSHIFT_DB_*'] variables can be used with databases created
+    # with rhc app cartridge add (see /README in this git repo)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'django',
+            'USER': 'adminuTunmIY',
+            'PASSWORD': 'pG5rXItjiX9w',
+            'HOST': '127.10.122.129',
+            'PORT': '3306',
+        }
+    }
+    CACHES = {
+        "default": {
+            "BACKEND": keys.OS_CACHE_BACKEND,
+            "LOCATION": keys.OS_CACHE_LOCATION,
+            "OPTIONS": {
+                "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            }
+        },
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'startupguwahati',
+            'USER': 'indiaproperty',
+            'PASSWORD': 'ip@123',
+            'HOST': '127.0.0.1',
+            'PORT': '3306',
+        },
+    }
+    CACHES = {
+        "default": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": "redis://127.0.0.1:6379/0",
+            "OPTIONS": {
+                "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            }
+        },
+    }
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
