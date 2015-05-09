@@ -2,6 +2,10 @@
 
 import math
 import requests
+import geopy
+from geopy.distance import VincentyDistance
+from geopy.distance import vincenty
+
 from django.conf import settings
 
 
@@ -9,18 +13,30 @@ def distance(origin, destination):
     """Takes the source (lat, long) and destination (lat, long)
     and gives the distance between them."""
 
-    lat1, lon1 = origin
-    lat2, lon2 = destination
-    RADIUS = 6371    # earths radius. Unchangable
+    return vincenty(origin, destination)
 
-    dlat = math.radians(lat2-lat1)
-    dlon = math.radians(lon2-lon1)
-    a = math.sin(dlat/2) * math.sin(dlat/2) + math.cos(math.radians(lat1)) \
-        * math.cos(math.radians(lat2)) * math.sin(dlon/2) * math.sin(dlon/2)
-    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1-a))
-    d = RADIUS * c
 
-    return d
+def offset_latlong(origin, distance, bearing):
+    """Offsets the lat long by an n distance.
+    bearing in degrees, distance in kilometers"""
+
+    origin = geopy.Point(origin[0], origin[1])
+    destination = VincentyDistance(kilometers=distance).destination(
+            origin, bearing)
+
+    return (destination.latitude, destination.longitude)
+
+
+def get_bounding_box(origin, distance):
+    """Gets the bounding box i.e. the lat+dist, lat-dist, long+dist, long-dist.
+    """
+
+    latInc = offset_latlong(origin, distance, 0)[0]
+    latDec = offset_latlong(origin, distance, 180)[0]
+    longInc = offset_latlong(origin, distance, 90)[1]
+    longDec = offset_latlong(origin, distance, 270)[1]
+
+    return (latInc, longInc, latDec, longDec)
 
 
 def get_coords_from_address(address):

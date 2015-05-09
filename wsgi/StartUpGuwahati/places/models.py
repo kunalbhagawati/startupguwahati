@@ -80,6 +80,7 @@ class Place(models.Model):
     def get_places_nearby(self, radius=2):
         """Gets all places which are at a distance of n kms."""
 
+        # searchLat =
         pass
 
     def get_latlong(self):

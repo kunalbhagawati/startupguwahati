@@ -19,10 +19,10 @@ urlpatterns += patterns('',
 )
 
 urlpatterns += patterns('',
-    url(r'^$', djangoViews.IndexView.as_view()),
+    # url(r'^$', djangoViews.IndexView.as_view()),
     # url(r'^twitterreader', include('twitterreader.djangoUrls')),
     url(r'^admin/', include(admin.site.urls)),
     # url(r'^places/', include('places.restUrls')),
-    url(r'^users/', include('users.urls')),
-    (r'^foundation/', include('foundation.urls')),
+    # url(r'^login/', include('users.urls')),
+    # (r'^foundation/', include('foundation.urls')),
 )
