@@ -77,11 +77,11 @@ class PlaceUpdate(generics.RetrieveUpdateDestroyAPIView):
 
 class PlaceImagesCreate(generics.CreateAPIView):
 
-    queryset = models.Place.objects.all()
-    serializer_class = serializers.PlaceSerializer
+    queryset = models.PlaceImages.objects.all()
+    serializer_class = serializers.PlaceImagesSerializer
 
 
 class PlaceImagesUpdate(generics.RetrieveUpdateDestroyAPIView):
 
-    queryset = models.Place.objects.all()
-    serializer_class = serializers.PlaceSerializer
+    queryset = models.PlaceImages.objects.all()
+    serializer_class = serializers.PlaceImagesSerializer
