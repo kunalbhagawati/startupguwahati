@@ -132,3 +132,5 @@ MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media')
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-url
 MEDIA_URL = '/media/'
 ########## END MEDIA CONFIGURATION
+
+GOOGLE_API_KEY = 'AIzaSyDIuWeFqS6bpaLAtgAtCkYCETkD6Mvii7g'

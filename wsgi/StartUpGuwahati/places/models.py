@@ -71,7 +71,7 @@ class Place(models.Model):
     street = models.CharField(null=True, max_length=100)
     locality = models.ForeignKey(Locality, on_delete=models.PROTECT)
     is_place_covered = models.NullBooleanField(null=True)
-    is_place_private = models.BooleanField(required=True)
+    is_place_private = models.BooleanField(default=True)
 
     facilities = models.ManyToManyField(PlaceFacilities)
 
@@ -79,6 +79,23 @@ class Place(models.Model):
         """Gets all places which are at a distance of n kms."""
 
         pass
+
+    def get_latlong(self,):
+        """Gets the lat long for the place.
+        If lat long is not available, then queries its localityid.
+        If the locality id is not available, queries google geodata."""
+
+        latitude = self.latitude
+        longitude = self.longitude
+
+        if not latitude or not longitude:
+            # fetch from locality
+            latitude = self.locality.latitude
+            longitude = self.locality.longitude
+
+        if not latitude or not longitude:
+            # hit google
+            cf.get_lat_long_from_address
 
     def save(self):
         """If lat long is not passed, then try to get it from the locality.
@@ -91,11 +108,8 @@ class Place(models.Model):
         return "{0}@({1}, {2})".format(
                 self.place_name, self.latitude, self.longitude)
 
-    class Meta:
-        abstract = True
 
-
-class PlaceAttributes(models.Models):
+class PlaceAttributes(models.Model):
     """Model to define the common functions for the models."""
 
     pass

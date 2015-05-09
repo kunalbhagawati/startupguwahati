@@ -1,6 +1,8 @@
 """Holds the common functions for the places API."""
 
 import math
+import requests
+from django.conf import settings
 
 
 def distance(origin, destination):
@@ -21,7 +23,24 @@ def distance(origin, destination):
     return d
 
 
-def get_lat_long_from_address():
-    """Gets the lat and long from a given place."""
+def get_lat_long_from_address(address):
+    """Gets the lat and long from a given place. Hits google directly."""
 
-    pass
+    url = "https://maps.googleapis.com/maps/api/geocode/json?address={0}&key={1}".format(address, settings.GOOGLE_API_KEY)
+    res = requests.get(url)
+    if res.status_code//100 == 5:
+        # Google internat server error
+        raise Exception(500)
+    if res.status_code//100 == 4:
+        # Bad Request, Auth Failed
+        raise Exception(400)
+
+    resDict = res.json()
+    if not resDict['results']:
+        return False
+    latlongs = set()
+    for pDict in resDict['results']:   # may contain multiple
+        location = pDict['geometry']['location']
+        latitude = location['lat']
+        longitude = location['lng']
+        latlongs.add({latitude, longitude})
