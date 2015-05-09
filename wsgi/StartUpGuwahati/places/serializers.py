@@ -41,7 +41,7 @@ class PlaceSerializer(serializers.ModelSerializer):
             slug_field='facility_name',
             queryset=PlaceFacilities.objects.all(),
          )
-    placeimages_set = PlaceImagesSerializer(read_only=True)
+    placeimages_set = PlaceImagesSerializer(read_only=True, many=True)
 
     # def get_attributes(self, obj):
     #     # if obj.is_private:
@@ -77,10 +77,6 @@ class PlaceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Place
-        fields = ('place_name', 'latitude', 'longitude', 'street', 'locality',
-                'is_covered', 'is_private', 'createdon', 'modifiedon',
-                'placeimages_set', 'privateplaceattributes',
-                'publicplaceattributes', 'facilities',)
 
 
 # class MappingHomepagebannerLocaleSerializer(serializers.ModelSerializer):
