@@ -12,6 +12,12 @@ from users import serializers as uSerializers
 class PlaceSerializer(serializers.ModelSerializer):
 
     attributes = serializers.SerializerMethodField()
+    facilities = serializers.SlugRelatedField(
+            many=True,
+            read_only=False,
+            slug_field='facility_name',
+            queryset=PlaceFacilities.objects.all(),
+         )
 
     def get_attributes(self, obj):
         # if obj.is_private:
@@ -26,9 +32,10 @@ class PlaceSerializer(serializers.ModelSerializer):
 
         if obj.is_private:
             if hasattr(obj, 'privateplaceattributes'):
-                return (uSerializers
+                return {'owner': (uSerializers
                         .UserSerializer(obj.privateplaceattributes.owner)
                         .data)
+                        }
         else:
             if hasattr(obj, 'publicplaceattributes'):
                 return obj.publicplaceattributes.place_type
