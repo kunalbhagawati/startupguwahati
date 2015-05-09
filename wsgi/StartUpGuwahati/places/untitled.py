@@ -1,4 +1,4 @@
-from django.db import connections
+from django.db import connections, ProgrammingError
 from places import models
 
 uniqueLocs = set()
@@ -24,5 +24,7 @@ for loc in uniqueLocs:
             loc.latitude = i[0]
             loc.longitude = i[1]
         loc.save()
-    except ProgrammingError as e:
+    # except ProgrammingError as e:
+    #     print(e)
+    except Exception as e:
         print(e)

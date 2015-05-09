@@ -9,9 +9,25 @@ from .models import *
 from users import serializers as uSerializers
 
 
-class PlaceSerializer(serializers.ModelSerializer):
+class PublicPlaceAttributesSerializer(serializers.ModelSerializer):
 
-    attributes = serializers.SerializerMethodField()
+    class Meta:
+        model = PublicPlaceAttributes
+
+
+class PrivatePlaceAttributesSerializer(serializers.ModelSerializer):
+
+    owner = uSerializers.UserSerializer(read_only=True)
+
+    class Meta:
+        model = PrivatePlaceAttributes
+
+
+class PlaceSerializer(serializers.ModelSerializer):
+    """Serializers a place along with all its related fields."""
+
+    privateplaceattributes = PrivatePlaceAttributesSerializer(read_only=True)
+    publicplaceattributes = PublicPlaceAttributesSerializer(read_only=True)
     facilities = serializers.SlugRelatedField(
             many=True,
             read_only=False,
