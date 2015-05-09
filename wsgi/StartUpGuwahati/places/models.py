@@ -1,20 +1,6 @@
+"""Models for the places APIs."""
+
 from django.db import models
-import math
-
-
-def distance(origin, destination):
-    lat1, lon1 = origin
-    lat2, lon2 = destination
-    radius = 6371    # earrths radius
-
-    dlat = math.radians(lat2-lat1)
-    dlon = math.radians(lon2-lon1)
-    a = math.sin(dlat/2) * math.sin(dlat/2) + math.cos(math.radians(lat1)) \
-        * math.cos(math.radians(lat2)) * math.sin(dlon/2) * math.sin(dlon/2)
-    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1-a))
-    d = radius * c
-
-    return d
 
 
 class Country(models.Model):
@@ -60,6 +46,17 @@ class Locality(models.Model):
         return self.locality_name
 
 
+class PlaceFacilities(models.Model):
+    """Facilities for a place."""
+
+    facility_name = models.CharField(max_length=100)
+    parent = models.ForeignKey('self', on_delete=models.CASCADE)
+
+
+# class PlaceFacilitiesMap(models.Model):
+#     """Mapping between a place and a facility."""
+
+
 class Place(models.Model):
     """Abstract model to hold information about a place."""
 
@@ -68,8 +65,21 @@ class Place(models.Model):
     longitude = models.DecimalField(null=True, max_digits=9, decimal_places=2)
     street = models.CharField(null=True, max_length=100)
     locality = models.ForeignKey(Locality, on_delete=models.PROTECT)
-
     is_place_covered = models.NullBooleanField(null=True)
+
+    facilities = models.ManyToManyField(PlaceFacilities)
+
+    def get_places_nearby(self, radius=2):
+        """Gets all places which are at a distance of n kms."""
+
+        pass
+
+    def save(self):
+        """If lat long is not passed, then try to get it from the locality.
+        Likewise, if locality is not passed, get it from the latitude
+        and logitude."""
+
+        pass
 
     def __str__(self):
         return "{0}@({1}, {2})".format(
@@ -82,6 +92,8 @@ class Place(models.Model):
 class PrivatePlace(Place):
     """Model to hold information about a private place."""
 
+    owner = models.IntegerField()   # set to foreign key later
+
 
 class PublicPlace(Place):
     """Model to hold information about a public place."""
@@ -92,15 +104,6 @@ class PublicPlace(Place):
         )
 
     place_type = models.IntegerField(choices=PLACE_TYPES)
-
-
-# class PlaceFilters(models.Model):
-#     """Filters for a place."""
-
-#     place = models.ForeignKey(Place, on_delete=models.CASCADE)
-
-#     class Meta:
-#         abstract = True
 
 
 # class PlaceQualities(models.Model):
