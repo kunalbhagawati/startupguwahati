@@ -77,24 +77,3 @@ class PlaceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Place
-
-
-# class MappingHomepagebannerLocaleSerializer(serializers.ModelSerializer):
-#     """Serializes the homepage banners."""
-
-#     id = serializers.IntegerField(label='ID', read_only=True)
-#     banner = serializers.ImageField(max_length=100, use_url=True)
-#     localeid = serializers.IntegerField(
-#                 max_value=2147483647, min_value=-2147483648, required=True)
-#     localetype = serializers.ChoiceField(
-#                 choices=[
-#                     (1, 'city'),
-#                     (2, 'state')],
-#                 required=True)
-
-#     class Meta:
-#         model = MappingHomepagebannerLocale
-#         # validators = [
-#         #         serializers.UniqueTogetherValidator(
-#         #             queryset=MappingHomepagebannerLocale.objects.all(),
-#         #             fields=('localeid', 'localetype'))]
