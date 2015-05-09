@@ -1,0 +1,11 @@
+[
+{
+    "fields": {
+        "username": "kunl",
+        "name": "Kunal Bhagawati",
+        "email": "kunal.bhagawati@gmail.com"
+    },
+    "pk": 1,
+    "model": "users.user"
+}
+]
