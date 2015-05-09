@@ -107,7 +107,7 @@ class Place(models.Model):
 
         return (latitude, longitude)
 
-    def save(self):
+    def save(self, *args, **kwargs):
         """If lat long is not passed, then try to get it from the locality.
         Likewise, if locality is not passed, get it from the latitude
         and logitude."""
@@ -121,6 +121,8 @@ class Place(models.Model):
                 latLongs = tuple(latLongs)
                 self.latitude = latLongs[0][0]
                 self.longitude = latLongs[0][1]
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return "{0}@({1}, {2})".format(

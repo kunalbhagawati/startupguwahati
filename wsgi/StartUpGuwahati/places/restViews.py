@@ -26,7 +26,7 @@ class PlaceFilter(django_filters.FilterSet):
             }
 
 
-class PlacesList(generics.ListAPIView):
+class PlacesList(generics.ListCreateAPIView):
     """List all places or create a new one."""
 
     queryset = models.Place.objects.all()
