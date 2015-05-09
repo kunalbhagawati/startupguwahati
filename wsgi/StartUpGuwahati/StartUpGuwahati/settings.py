@@ -111,15 +111,6 @@ if ON_OPENSHIFT:
             'PORT': '3306',
         }
     }
-    CACHES = {
-        "default": {
-            "BACKEND": keys.OS_CACHE_BACKEND,
-            "LOCATION": keys.OS_CACHE_LOCATION,
-            "OPTIONS": {
-                "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            }
-        },
-    }
 else:
     DATABASES = {
         'default': {
@@ -129,15 +120,6 @@ else:
             'PASSWORD': 'ip@123',
             'HOST': '127.0.0.1',
             'PORT': '3306',
-        },
-    }
-    CACHES = {
-        "default": {
-            "BACKEND": "django_redis.cache.RedisCache",
-            "LOCATION": "redis://127.0.0.1:6379/0",
-            "OPTIONS": {
-                "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            }
         },
     }
 
