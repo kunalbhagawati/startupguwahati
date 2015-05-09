@@ -13,7 +13,7 @@ urlpatterns = patterns('',
                 restViews.PlaceImagesCreate.as_view(),
                 name='place-images-create'),
 
-            url(r'^images/(?P<pk>[0-9]+)/$',
+            url(r'^images/(?P<imgId>[0-9]+)/$',
                 restViews.PlaceImagesUpdate.as_view(),
                 name='place-images-update'),
         ), ), ),

@@ -55,15 +55,6 @@ class PlaceUpdate(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = serializers.PlaceSerializer
     # permission_classes = (IsAdminUser,)
 
-    # def get(self, request, *args, **kwargs):
-    #     device = rConn.hget(hashName, kwargs['pk'])
-    #     if device:
-    #         device = RedisConverter.decode(device)
-    #         return Response(json.loads(device), status=200)
-    #     res = self.retrieve(request, *args, **kwargs)
-    #     rConn.hset(hashName, kwargs['pk'], json.dumps(res.data))
-    #     return res
-
     # def perform_update(self, serializer):
     #     dObj = serializer.save()
     #     dObjSerialized = serializers.DeviceSerializer(dObj).data
@@ -77,11 +68,18 @@ class PlaceUpdate(generics.RetrieveUpdateDestroyAPIView):
 
 class PlaceImagesCreate(generics.ListCreateAPIView):
 
-    queryset = models.PlaceImages.objects.all()
     serializer_class = serializers.PlaceImagesSerializer
+
+    def get_queryset(self):
+        return models.PlaceImages.objects.filter(place=self.kwargs['pk'])
 
 
 class PlaceImagesUpdate(generics.RetrieveUpdateDestroyAPIView):
 
-    queryset = models.PlaceImages.objects.all()
     serializer_class = serializers.PlaceImagesSerializer
+    lookup_url_kwarg = 'imgId'
+
+    def get_queryset(self):
+        return models.PlaceImages.objects.filter(
+                place=self.kwargs['pk'],
+                pk=self.kwargs['imgId'])
