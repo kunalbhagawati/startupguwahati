@@ -108,38 +108,33 @@ class Place(models.Model):
         latitude = self.latitude
         longitude = self.longitude
 
-        if not latitude or not longitude:
-            # fetch from locality
-            latitude = self.locality.latitude
-            longitude = self.locality.longitude
+        if latitude and longitude:
+            return (latitude, longitude)
 
-        if not latitude or not longitude:
-            # hit google
-            latLongs = cf.get_coords_from_address(
-                    self.locality.locality_name,
-                    region=self.locality.city.city_name)
-            if not latLongs:
-                return False
+        # fetch from locality
+        latitude = self.locality.latitude
+        longitude = self.locality.longitude
 
-            latLongs = tuple(latLongs)
-            latitude, longitude = latLongs[0]
+        if latitude and longitude:
+            return (latitude, longitude)
 
-        return (latitude, longitude)
+        # hit the web
+        latLongs = cf.get_coords_from_address(
+                self.locality.locality_name,
+                city=self.locality.city.city_name)
+        if latLongs:
+            return latLongs
+
+        return False
 
     def save(self, *args, **kwargs):
         """If lat long is not passed, then try to get it from the locality.
         Likewise, if locality is not passed, get it from the latitude
         and logitude."""
 
-        if not self.latitude or self.longitude:
-            latLongs = cf.get_coords_from_address(self.locality.locality_name)
-            if not latLongs:
-                # raise Exception("Could not find lat long for "
-                        # "locality: {0}".format(self.locality))
-                pass
-            else:
-                latLongs = tuple(latLongs)
-                self.latitude, self.longitude = latLongs[0]
+        latLongs = self.get_latlong()
+        if latLongs:
+            self.latitude, self.longitude = latLongs
 
         super().save(*args, **kwargs)
 
