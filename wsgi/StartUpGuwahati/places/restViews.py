@@ -76,15 +76,32 @@ class PlaceUpdate(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = serializers.PlaceSerializer
     # permission_classes = (IsAdminUser,)
 
-    # def perform_update(self, serializer):
-    #     dObj = serializer.save()
-    #     dObjSerialized = serializers.DeviceSerializer(dObj).data
-    #     rConn.hset(hashName, dObj.pk, json.dumps(dObjSerialized))
+    def perform_update(self, serializer):
+        try:
+            with transaction.atomic():
+                placeObj = serializer.save()
 
-    # def perform_destroy(self, instance):
-    #     dId = instance.pk
-    #     instance.delete()
-    #     rConn.hdel(hashName, dId)
+                if placeObj.is_private:
+                    attrType = 'privateplaceattributes'
+                    prvAttr = self.request.data.pop(attrType)
+                    prvAttr['place'] = placeObj.pk
+                    ser = serializers.PrivatePlaceAttributesCreationSerializer(
+                            placeObj.privateplaceattributes,
+                            data=prvAttr)
+                else:
+                    attrType = 'publicplaceattributes'
+                    pubAttr = self.request.data.pop(attrType)
+                    pubAttr['place'] = placeObj.pk
+                    ser = serializers.PublicPlaceAttributesSerializer(
+                            placeObj.publicplaceattributes,
+                            data=pubAttr)
+
+                if ser.is_valid():
+                    ser.save()
+                else:
+                    raise Exception({attrType: ser.errors})
+        except:
+            raise
 
 
 class PlaceImagesCreate(generics.ListCreateAPIView):
