@@ -89,13 +89,16 @@ class Place(models.Model):
         # get bounding box first
         latInc, latDec, longInc, longDec = cf.get_bounding_box(
                 (latitude, longitude), radius)
-        # get all models inside the bounding box.
-        Place.objects.exclude(latitude=None, longitude=None).filter(
-                latitude__gte=latDec,
-                latitude__lte=latInc,
-                longitude__gte=longDec,
-                longitude__lte=longInc,
-                )
+        # return all models inside the bounding box (who have lat long).
+        return (Place
+                .objects
+                .exclude(pk=self.pk, latitude=None, longitude=None)
+                .filter(
+                    latitude__gte=latDec,
+                    latitude__lte=latInc,
+                    longitude__gte=longDec,
+                    longitude__lte=longInc,
+                    ))
 
     def get_latlong(self):
         """Gets the lat long for the place.
@@ -112,7 +115,9 @@ class Place(models.Model):
 
         if not latitude or not longitude:
             # hit google
-            latLongs = cf.get_coords_from_address(self.locality.locality_name)
+            latLongs = cf.get_coords_from_address(
+                    self.locality.locality_name,
+                    region=self.locality.city.city_name)
             if not latLongs:
                 return False
 

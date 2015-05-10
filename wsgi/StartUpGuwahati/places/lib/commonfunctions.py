@@ -40,7 +40,7 @@ def get_bounding_box(origin, distance):
     return (latInc, latDec, longInc, longDec)
 
 
-def get_coords_from_address(address, region=None):
+def get_coords_from_address(address, city=None):
     """Gets the lat and long from a given place. Hits google directly."""
 
     # attempt open maps first
@@ -49,32 +49,25 @@ def get_coords_from_address(address, region=None):
         qArgs = {
             'street': address
         }
-        if region:
-            qArgs['state'] = region
+        if city:
+            qArgs['city'] = city
         res = d.geocode(query=qArgs)
         if res:
             return (res.latitude, res.longitude)
     except geopyExc.GeocoderTimedOut:
         pass
 
-    # TODO convert below to geopy
-    url = "https://maps.googleapis.com/maps/api/geocode/json?address={0}&key={1}".format(address, settings.GOOGLE_API_KEY)
-    res = requests.get(url)
-    if res.status_code//100 == 5:
-        # Google internat server error
-        raise Exception(500)
-    if res.status_code//100 == 4:
-        # Bad Request, Auth Failed
-        raise Exception(400)
+    try:
+        d = geopy.GoogleV3(api_key=settings.GOOGLE_API_KEY, timeout=10)
+        qArgs = {
+            'query': address
+        }
+        if city:
+            qArgs['components'] = {'city': city}
+        res = d.geocode(query=qArgs)
+        if res:
+            return (res.latitude, res.longitude)
+    except geopyExc.GeocoderTimedOut:
+        pass
 
-    resDict = res.json()
-    if not resDict['results']:
-        return False
-    latlongs = set()
-    for pDict in resDict['results']:   # may contain multiple
-        location = pDict['geometry']['location']
-        latitude = location['lat']
-        longitude = location['lng']
-        latlongs.add((latitude, longitude))
-
-    return latlongs
+    return False
