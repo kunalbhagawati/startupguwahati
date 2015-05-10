@@ -30,6 +30,14 @@ class PrivatePlaceAttributesSerializer(serializers.ModelSerializer):
         model = PrivatePlaceAttributes
 
 
+class PrivatePlaceAttributesCreationSerializer(serializers.ModelSerializer):
+
+    place = serializers.PrimaryKeyRelatedField(queryset=Place.objects.all())
+
+    class Meta:
+        model = PrivatePlaceAttributes
+
+
 class PlaceSerializer(serializers.ModelSerializer):
     """Serializers a place along with all its related fields."""
 

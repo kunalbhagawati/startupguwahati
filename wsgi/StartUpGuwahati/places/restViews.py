@@ -5,6 +5,8 @@ from decimal import Decimal
 # # Third Party
 import django_filters
 
+from django.db import transaction
+
 # # REST Framework
 from rest_framework.response import Response
 from rest_framework import generics
@@ -42,13 +44,29 @@ class PlaceList(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         """Saves the owner or the property type, as per the request."""
 
-        # first remove the
-        # serializer.data.pop()
-        pass
+        try:
+            with transaction.atomic():
+                placeObj = serializer.save()
 
-        # placeObj = serializer.save()
-        # placeObjSerialized = serializers.PlaceSerializer(placeObj).data
-        # rConn.hset(hashName, placeObj.pk, json.dumps(dObjSerialized))
+                if placeObj.is_private:
+                    attrType = 'privateplaceattributes'
+                    prvAttr = self.request.data.pop(attrType)
+                    prvAttr['place'] = placeObj.pk
+                    ser = serializers.PrivatePlaceAttributesCreationSerializer(
+                            data=prvAttr)
+                else:
+                    attrType = 'publicplaceattributes'
+                    pubAttr = self.request.data.pop(attrType)
+                    pubAttr['place'] = placeObj.pk
+                    ser = serializers.PublicPlaceAttributesSerializer(
+                            data=pubAttr)
+
+                if ser.is_valid():
+                    ser.save()
+                else:
+                    raise Exception({attrType: ser.errors})
+        except:
+            raise
 
 
 class PlaceUpdate(generics.RetrieveUpdateDestroyAPIView):

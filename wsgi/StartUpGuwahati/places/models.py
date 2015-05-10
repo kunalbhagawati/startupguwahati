@@ -173,11 +173,12 @@ class PrivatePlaceAttributes(PlaceAttributes):
     place = models.OneToOneField(Place, primary_key=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    def save(self):
+    def save(self, *args, **kwargs):
         if not self.place.is_private:
             raise Exception("Cannot map a public place "
                     "to have private attributes. (Place: {0})"
                     .format(self.place.pk))
+        super().save(*args, **kwargs)
 
 
 class PublicPlaceAttributes(PlaceAttributes):
@@ -191,11 +192,12 @@ class PublicPlaceAttributes(PlaceAttributes):
     place = models.OneToOneField(Place, primary_key=True)
     place_type = models.IntegerField(choices=PLACE_TYPES)
 
-    def save(self):
+    def save(self, *args, **kwargs):
         if not self.place.is_private:
             raise Exception("Cannot map a private place "
                     "to have public attributes. (Place: {0})"
                     .format(self.place.pk))
+        super().save(*args, **kwargs)
 
 
 class PlaceImages(models.Model):
