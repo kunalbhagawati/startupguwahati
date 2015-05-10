@@ -38,6 +38,19 @@ class PrivatePlaceAttributesCreationSerializer(serializers.ModelSerializer):
         model = PrivatePlaceAttributes
 
 
+class LocalityField(serializers.RelatedField):
+    def to_representation(self, value):
+        """Returns locality name."""
+
+        return value.locality_name
+
+    def to_internal_value(self, data):
+        """Inserts using localityid."""
+
+        # get locality
+        return Locality.objects.get(pk=data)
+
+
 class PlaceSerializer(serializers.ModelSerializer):
     """Serializers a place along with all its related fields."""
 
@@ -50,11 +63,7 @@ class PlaceSerializer(serializers.ModelSerializer):
             queryset=PlaceFacilities.objects.all(),
          )
     placeimages_set = PlaceImagesSerializer(read_only=True, many=True)
-    locality = serializers.SlugRelatedField(
-            read_only=False,
-            slug_field='locality_name',
-            queryset=PlaceFacilities.objects.all(),
-         )
+    locality = LocalityField()
 
     # def get_attributes(self, obj):
     #     # if obj.is_private:
