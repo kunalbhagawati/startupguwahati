@@ -50,6 +50,11 @@ class PlaceSerializer(serializers.ModelSerializer):
             queryset=PlaceFacilities.objects.all(),
          )
     placeimages_set = PlaceImagesSerializer(read_only=True, many=True)
+    locality = serializers.SlugRelatedField(
+            read_only=False,
+            slug_field='locality_name',
+            queryset=PlaceFacilities.objects.all(),
+         )
 
     # def get_attributes(self, obj):
     #     # if obj.is_private:
