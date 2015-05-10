@@ -7,6 +7,9 @@ from rest_framework import serializers
 # homepage module
 from .models import *
 from users import serializers as uSerializers
+from users import (
+    models as userModels,
+    serializers as userSerializers)
 
 
 class PlaceImagesSerializer(serializers.ModelSerializer):
@@ -22,17 +25,22 @@ class PublicPlaceAttributesSerializer(serializers.ModelSerializer):
         model = PublicPlaceAttributes
 
 
+class OwnerField(serializers.RelatedField):
+    def to_representation(self, value):
+        """Returns owner information name."""
+
+        return userSerializers.UserSerializer(value).data
+
+    def to_internal_value(self, data):
+        """Inserts using ownerid."""
+
+        # get locality
+        return userModels.User.objects.get(pk=data)
+
+
 class PrivatePlaceAttributesSerializer(serializers.ModelSerializer):
 
-    owner = uSerializers.UserSerializer(read_only=True)
-
-    class Meta:
-        model = PrivatePlaceAttributes
-
-
-class PrivatePlaceAttributesCreationSerializer(serializers.ModelSerializer):
-
-    place = serializers.PrimaryKeyRelatedField(queryset=Place.objects.all())
+    owner = OwnerField(read_only=False, queryset=userModels.User.objects.all())
 
     class Meta:
         model = PrivatePlaceAttributes
@@ -64,38 +72,6 @@ class PlaceSerializer(serializers.ModelSerializer):
          )
     placeimages_set = PlaceImagesSerializer(read_only=True, many=True)
     locality = LocalityField(read_only=False, queryset=Locality.objects.all())
-
-    # def get_attributes(self, obj):
-    #     # if obj.is_private:
-    #     #     pType = private
-    #     # else:
-    #     #     pType = public
-
-    #     # if hasattr(obj, '{0}placeattributes'.format(pType)):
-    #     #     return dict
-    #     # else:
-    #     #     return None
-
-    #     if obj.is_private:
-    #         if hasattr(obj, 'privateplaceattributes'):
-    #             return {
-    #                 'owner': (uSerializers
-    #                     .UserSerializer(obj.privateplaceattributes.owner)
-    #                     .data)
-    #                 }
-    #     else:
-    #         if hasattr(obj, 'publicplaceattributes'):
-    #             return {
-    #                 'place_type': obj.publicplaceattributes.place_type
-    #                 }
-
-    #     return None
-
-    # def create(self, validated_data):
-    #     profile_data = validated_data.pop('profile')
-    #     user = User.objects.create(**validated_data)
-    #     Profile.objects.create(user=user, **profile_data)
-    #     return user
 
     class Meta:
         model = Place

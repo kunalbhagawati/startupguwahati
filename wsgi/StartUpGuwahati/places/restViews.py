@@ -14,7 +14,6 @@ from rest_framework.views import APIView
 # from rest_framework.permissions import IsAdminUser
 
 # # App
-from .lib import commonfunctions
 from . import models, serializers
 
 
@@ -52,7 +51,7 @@ class PlaceList(generics.ListCreateAPIView):
                     attrType = 'privateplaceattributes'
                     prvAttr = self.request.data.pop(attrType)
                     prvAttr['place'] = placeObj.pk
-                    ser = serializers.PrivatePlaceAttributesCreationSerializer(
+                    ser = serializers.PrivatePlaceAttributesSerializer(
                             data=prvAttr)
                 else:
                     attrType = 'publicplaceattributes'
