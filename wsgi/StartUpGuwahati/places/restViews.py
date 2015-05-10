@@ -1,5 +1,6 @@
 # # core
 import json
+from decimal import Decimal
 
 # # Third Party
 import django_filters
@@ -93,12 +94,12 @@ class GetNearbyPlacesByLatLongView(APIView):
     def get(self, request):
         qp = request.query_params
         if not qp.get('latitude', None) or not qp.get('longitude', None):
-            raise Exception("No latitude or longitude passed to "
-                    "search nearby places.")
+            return Response("No latitude or longitude passed to "
+                    "search nearby places.", status=400)
 
         radius = int(qp.get('radius', 2))
-        places = commonfunctions.get_places_nearby(
-                (int(qp['latitude']), int(qp['longitude'])),
+        places = models.get_places_nearby(
+                (Decimal(qp['latitude']), Decimal(qp['longitude'])),
                 radius=radius)
         res = serializers.PlaceSerializer(places, many=True)
         return Response(res.data, status=200)

@@ -213,7 +213,7 @@ def get_places_nearby(source, radius):
     latInc, latDec, longInc, longDec = cf.get_bounding_box(
             (latitude, longitude), radius)
     # return all models inside the bounding box (who have lat long).
-    return (models.Place
+    return (Place
             .objects
             .exclude(latitude=None, longitude=None)
             .filter(
