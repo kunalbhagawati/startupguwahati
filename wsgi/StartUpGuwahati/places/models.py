@@ -193,7 +193,7 @@ class PublicPlaceAttributes(PlaceAttributes):
     place_type = models.IntegerField(choices=PLACE_TYPES)
 
     def save(self, *args, **kwargs):
-        if not self.place.is_private:
+        if self.place.is_private:
             raise Exception("Cannot map a private place "
                     "to have public attributes. (Place: {0})"
                     .format(self.place.pk))
