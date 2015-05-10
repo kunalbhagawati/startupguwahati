@@ -47,6 +47,33 @@ class Locality(models.Model):
             null=True,
             on_delete=models.SET_NULL)
 
+    def get_latlong(self):
+        """Gets the lat long for the place.
+        If lat long is not available, then queries its localityid.
+        If the locality id is not available, queries google geodata."""
+
+        latitude = self.latitude
+        longitude = self.longitude
+
+        if latitude and longitude:
+            return (latitude, longitude)
+
+        # hit the web
+        latLongs = cf.get_coords_from_address(
+                self.locality_name,
+                city=self.city.city_name)
+
+        if latLongs:
+            # save if found
+            self.latitude, self.longitude = latLongs
+            try:
+                self.save()
+            except:
+                pass
+            return latLongs
+
+        return False
+
     def __str__(self):
         return "{0}. {1}".format(self.pk, self.locality_name)
 
@@ -111,21 +138,7 @@ class Place(models.Model):
         if latitude and longitude:
             return (latitude, longitude)
 
-        # fetch from locality
-        latitude = self.locality.latitude
-        longitude = self.locality.longitude
-
-        if latitude and longitude:
-            return (latitude, longitude)
-
-        # hit the web
-        latLongs = cf.get_coords_from_address(
-                self.locality.locality_name,
-                city=self.locality.city.city_name)
-        if latLongs:
-            return latLongs
-
-        return False
+        return self.locality.get_latlong()
 
     def save(self, *args, **kwargs):
         """If lat long is not passed, then try to get it from the locality.
