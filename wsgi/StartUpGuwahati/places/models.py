@@ -202,3 +202,23 @@ class PlaceImages(models.Model):
 
     place = models.ForeignKey(Place)
     image = models.ImageField(upload_to='places')
+
+
+def get_places_nearby(source, radius):
+    """Gets the nearby places for a given lat long."""
+
+    latitude, longitude = source
+
+    # get bounding box first
+    latInc, latDec, longInc, longDec = cf.get_bounding_box(
+            (latitude, longitude), radius)
+    # return all models inside the bounding box (who have lat long).
+    return (models.Place
+            .objects
+            .exclude(latitude=None, longitude=None)
+            .filter(
+                latitude__gte=latDec,
+                latitude__lte=latInc,
+                longitude__gte=longDec,
+                longitude__lte=longInc,
+                ))

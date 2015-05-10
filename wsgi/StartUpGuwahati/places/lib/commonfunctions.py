@@ -7,8 +7,6 @@ from geopy.distance import vincenty
 
 from django.conf import settings
 
-from places import models
-
 
 def distance(origin, destination):
     """Takes the source (lat, long) and destination (lat, long)
@@ -71,23 +69,3 @@ def get_coords_from_address(address, city=None):
         pass
 
     return False
-
-
-def get_places_nearby(source, radius):
-    """Gets the nearby places for a given lat long."""
-
-    latitude, longitude = source
-
-    # get bounding box first
-    latInc, latDec, longInc, longDec = get_bounding_box(
-            (latitude, longitude), radius)
-    # return all models inside the bounding box (who have lat long).
-    return (models.Place
-            .objects
-            .exclude(latitude=None, longitude=None)
-            .filter(
-                latitude__gte=latDec,
-                latitude__lte=latInc,
-                longitude__gte=longDec,
-                longitude__lte=longInc,
-                ))
