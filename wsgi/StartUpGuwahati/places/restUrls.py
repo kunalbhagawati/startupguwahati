@@ -15,6 +15,10 @@ urlpatterns = patterns('',
                 restViews.PlaceImagesCreate.as_view(),
                 name='place-images-create'),
 
+            url(r'^nearby/$',
+                restViews.GetNearbyPlacesForModel.as_view(),
+                name='place-nearby-places'),
+
             url(r'^images/(?P<imgId>[0-9]+)/$',
                 restViews.PlaceImagesUpdate.as_view(),
                 name='place-images-update'),

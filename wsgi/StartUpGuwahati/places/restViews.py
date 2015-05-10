@@ -103,3 +103,22 @@ class GetNearbyPlacesByLatLongView(APIView):
                 radius=radius)
         res = serializers.PlaceSerializer(places, many=True)
         return Response(res.data, status=200)
+
+
+class GetNearbyPlacesForModel(APIView):
+    """Gets the nearby places for a given model."""
+
+    def get(self, request, pk):
+        try:
+            place = models.Place.objects.get(pk=pk)
+        except models.Place.DoesNotExist:
+            return Response("Place with id {0} does not exist."
+                    .format(pk),
+                    status=400)
+
+        qp = request.query_params
+
+        radius = int(qp.get('radius', 2))
+        places = place.get_places_nearby(radius=radius)
+        res = serializers.PlaceSerializer(places, many=True)
+        return Response(res.data, status=200)
