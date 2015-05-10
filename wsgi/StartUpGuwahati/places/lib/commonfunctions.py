@@ -1,7 +1,5 @@
 """Holds the common functions for the places API."""
 
-import math
-import requests
 import geopy
 from geopy import exc as geopyExc
 from geopy.distance import VincentyDistance

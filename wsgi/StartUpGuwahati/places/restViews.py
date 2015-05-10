@@ -7,9 +7,11 @@ import django_filters
 # # REST Framework
 from rest_framework.response import Response
 from rest_framework import generics
+from rest_framework.views import APIView
 # from rest_framework.permissions import IsAdminUser
 
 # # App
+from .lib import commonfunctions
 from . import models, serializers
 
 
@@ -83,3 +85,20 @@ class PlaceImagesUpdate(generics.RetrieveUpdateDestroyAPIView):
         return models.PlaceImages.objects.filter(
                 place=self.kwargs['pk'],
                 pk=self.kwargs['imgId'])
+
+
+class GetNearbyPlacesByLatLongView(APIView):
+    """Gets the nearby places for a given lat long."""
+
+    def get(self, request):
+        qp = request.query_params
+        if not qp.get('latitude', None) or not qp.get('longitude', None):
+            raise Exception("No latitude or longitude passed to "
+                    "search nearby places.")
+
+        radius = int(qp.get('radius', 2))
+        places = commonfunctions.get_places_nearby(
+                (int(qp['latitude']), int(qp['longitude'])),
+                radius=radius)
+        res = serializers.PlaceSerializer(places, many=True)
+        return Response(res.data, status=200)

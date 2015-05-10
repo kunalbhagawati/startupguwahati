@@ -3,6 +3,8 @@ from . import restViews
 
 urlpatterns = patterns('',
     url(r'^$', restViews.PlaceList.as_view(), name='place-list'),
+    url(r'^nearby/$', restViews.GetNearbyPlacesByLatLongView.as_view(),
+        name='places-nearby'),
 
     url(r'^(?P<pk>[0-9]+)/', include(patterns('',
             url(r'^$',
