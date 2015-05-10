@@ -93,6 +93,7 @@ class Place(models.Model):
     """Model to hold information about a place."""
 
     place_name = models.CharField(max_length=50)
+    description = models.CharField(max_length=255, null=True)
     latitude = models.DecimalField(null=True, max_digits=9, decimal_places=7)
     longitude = models.DecimalField(null=True, max_digits=9, decimal_places=7)
     street = models.CharField(null=True, max_length=100)
