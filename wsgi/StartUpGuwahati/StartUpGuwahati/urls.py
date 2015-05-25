@@ -2,6 +2,7 @@ from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from . import restViews, djangoViews
+from rest_framework.authtoken import views
 
 urlpatterns = patterns('',
     url(r'^api/', include(patterns('',
@@ -27,3 +28,7 @@ urlpatterns += patterns('',
     # url(r'^login/', include('users.urls')),
     # (r'^foundation/', include('foundation.urls')),
 )
+
+urlpatterns += [
+    url(r'^api-token-auth/', views.obtain_auth_token)
+]
