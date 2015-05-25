@@ -21,7 +21,6 @@ class DummyList(generics.ListCreateAPIView):
 
     queryset = models.Dummy.objects.all()
     serializer_class = serializers.DummySerializer
-    # permission_classes = (IsAuthenticatedOrReadOnly,)
     paginate_by = 10
 
 
@@ -29,5 +28,22 @@ class GetUpdateDeleteDummyView(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = models.Dummy.objects.all()
     serializer_class = serializers.DummySerializer
-    # permission_classes = (IsAuthenticated,)
+    paginate_by = 10
+
+
+class BasicAuthDummyList(generics.ListCreateAPIView):
+
+    queryset = models.Dummy.objects.all()
+    serializer_class = serializers.DummySerializer
+    authentication_classes = (BasicAuthentication, )
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    paginate_by = 10
+
+
+class BasicAuthGetUpdateDeleteDummyView(generics.RetrieveUpdateDestroyAPIView):
+
+    queryset = models.Dummy.objects.all()
+    serializer_class = serializers.DummySerializer
+    authentication_classes = (BasicAuthentication, )
+    permission_classes = (IsAuthenticated,)
     paginate_by = 10
