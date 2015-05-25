@@ -10,6 +10,7 @@ urlpatterns = patterns('',
         # url(r'^twitterreader', include('twitterreader.restUrls')),
         url(r'^places/', include('places.restUrls')),
         url(r'^users/', include('users.restUrls')),
+        url(r'^playground/', include('playground.urls')),
         ),
     ), ), )
 
