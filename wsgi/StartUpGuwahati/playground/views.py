@@ -47,3 +47,21 @@ class BasicAuthGetUpdateDeleteDummyView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = (BasicAuthentication, )
     permission_classes = (IsAuthenticated,)
     paginate_by = 10
+
+
+class SessionAuthDummyList(generics.ListCreateAPIView):
+
+    queryset = models.Dummy.objects.all()
+    serializer_class = serializers.DummySerializer
+    authentication_classes = (SessionAuthentication, )
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    paginate_by = 10
+
+
+class SessionAuthGetUpdateDeleteDummyView(generics.RetrieveUpdateDestroyAPIView):
+
+    queryset = models.Dummy.objects.all()
+    serializer_class = serializers.DummySerializer
+    authentication_classes = (SessionAuthentication, )
+    permission_classes = (IsAuthenticated,)
+    paginate_by = 10
