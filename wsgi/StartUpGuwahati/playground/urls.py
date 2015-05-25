@@ -9,7 +9,7 @@ urlpatterns = patterns('',
         ), ), ),
 
     url(r'^/(?P<pk>[0-9]+)/', include(patterns('',
-        url(r'^$', views.teapotView, name="noauth-instance"),
+        url(r'^$', views.GetUpdateDeleteDummyView, name="noauth-instance"),
         # url(r'^basic/', views.teapotView, name="basic-list"),
         ), ), ),
     )
