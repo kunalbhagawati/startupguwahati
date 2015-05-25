@@ -58,10 +58,30 @@ class SessionAuthDummyList(generics.ListCreateAPIView):
     paginate_by = 10
 
 
-class SessionAuthGetUpdateDeleteDummyView(generics.RetrieveUpdateDestroyAPIView):
+class SessionAuthGetUpdateDeleteDummyView(
+        generics.RetrieveUpdateDestroyAPIView):
 
     queryset = models.Dummy.objects.all()
     serializer_class = serializers.DummySerializer
     authentication_classes = (SessionAuthentication, )
+    permission_classes = (IsAuthenticated,)
+    paginate_by = 10
+
+
+class TokenAuthDummyList(generics.ListCreateAPIView):
+
+    queryset = models.Dummy.objects.all()
+    serializer_class = serializers.DummySerializer
+    authentication_classes = (TokenAuthentication, )
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    paginate_by = 10
+
+
+class TokenAuthGetUpdateDeleteDummyView(
+        generics.RetrieveUpdateDestroyAPIView):
+
+    queryset = models.Dummy.objects.all()
+    serializer_class = serializers.DummySerializer
+    authentication_classes = (TokenAuthentication, )
     permission_classes = (IsAuthenticated,)
     paginate_by = 10
