@@ -1,0 +1,312 @@
+[
+{
+    "pk": 1,
+    "fields": {
+        "modifiedon": "2014-09-23T10:22:58Z",
+        "name": "Twitterbridge",
+        "createdon": "2014-12-24T21:06:20Z",
+        "description": "Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis. Sed ante. Vivamus tortor. Duis mattis egestas metus."
+    },
+    "model": "playground.dummy"
+},
+{
+    "pk": 2,
+    "fields": {
+        "modifiedon": "2014-07-31T07:38:17Z",
+        "name": "Tavu",
+        "createdon": "2014-06-21T06:55:14Z",
+        "description": "Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius."
+    },
+    "model": "playground.dummy"
+},
+{
+    "pk": 3,
+    "fields": {
+        "modifiedon": "2014-07-16T02:44:35Z",
+        "name": "Fivespan",
+        "createdon": "2014-06-23T19:12:21Z",
+        "description": "Aliquam non mauris."
+    },
+    "model": "playground.dummy"
+},
+{
+    "pk": 4,
+    "fields": {
+        "modifiedon": "2014-10-25T22:29:54Z",
+        "name": "Photobug",
+        "createdon": "2015-05-12T08:33:51Z",
+        "description": "Donec quis orci eget orci vehicula condimentum. Curabitur in libero ut massa volutpat convallis."
+    },
+    "model": "playground.dummy"
+},
+{
+    "pk": 5,
+    "fields": {
+        "modifiedon": "2014-07-13T15:11:56Z",
+        "name": "Blognation",
+        "createdon": "2015-02-02T15:17:52Z",
+        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit."
+    },
+    "model": "playground.dummy"
+},
+{
+    "pk": 6,
+    "fields": {
+        "modifiedon": "2014-10-21T16:01:35Z",
+        "name": "Edgetag",
+        "createdon": "2015-02-26T11:12:45Z",
+        "description": "Integer ac leo. Pellentesque ultrices mattis odio."
+    },
+    "model": "playground.dummy"
+},
+{
+    "pk": 7,
+    "fields": {
+        "modifiedon": "2015-03-13T22:37:15Z",
+        "name": "Wordtune",
+        "createdon": "2015-05-08T00:13:16Z",
+        "description": "Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat. Praesent blandit."
+    },
+    "model": "playground.dummy"
+},
+{
+    "pk": 8,
+    "fields": {
+        "modifiedon": "2014-06-04T03:37:09Z",
+        "name": "Cogidoo",
+        "createdon": "2015-04-26T09:26:02Z",
+        "description": "Proin at turpis a pede posuere nonummy. Integer non velit."
+    },
+    "model": "playground.dummy"
+},
+{
+    "pk": 9,
+    "fields": {
+        "modifiedon": "2014-11-26T13:30:13Z",
+        "name": "Ntag",
+        "createdon": "2015-03-24T19:12:53Z",
+        "description": "Etiam justo. Etiam pretium iaculis justo. In hac habitasse platea dictumst."
+    },
+    "model": "playground.dummy"
+},
+{
+    "pk": 10,
+    "fields": {
+        "modifiedon": "2014-10-14T10:43:38Z",
+        "name": "Skipfire",
+        "createdon": "2015-02-14T01:23:01Z",
+        "description": "Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus. Phasellus in felis."
+    },
+    "model": "playground.dummy"
+},
+{
+    "pk": 11,
+    "fields": {
+        "modifiedon": "2015-04-26T01:53:10Z",
+        "name": "Zoonoodle",
+        "createdon": "2014-09-17T10:28:52Z",
+        "description": "Duis bibendum. Morbi non quam nec dui luctus rutrum."
+    },
+    "model": "playground.dummy"
+},
+{
+    "pk": 12,
+    "fields": {
+        "modifiedon": "2014-09-13T21:45:38Z",
+        "name": "Realpoint",
+        "createdon": "2015-02-12T00:16:45Z",
+        "description": "Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh."
+    },
+    "model": "playground.dummy"
+},
+{
+    "pk": 13,
+    "fields": {
+        "modifiedon": "2014-06-16T18:48:36Z",
+        "name": "Pixope",
+        "createdon": "2014-10-08T12:03:22Z",
+        "description": "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti. Nullam porttitor lacus at turpis."
+    },
+    "model": "playground.dummy"
+},
+{
+    "pk": 14,
+    "fields": {
+        "modifiedon": "2015-02-16T05:51:39Z",
+        "name": "Katz",
+        "createdon": "2015-03-15T19:08:31Z",
+        "description": "Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit."
+    },
+    "model": "playground.dummy"
+},
+{
+    "pk": 15,
+    "fields": {
+        "modifiedon": "2015-01-24T01:13:09Z",
+        "name": "Fivechat",
+        "createdon": "2014-08-22T20:02:27Z",
+        "description": "Etiam pretium iaculis justo."
+    },
+    "model": "playground.dummy"
+},
+{
+    "pk": 16,
+    "fields": {
+        "modifiedon": "2015-03-07T20:24:42Z",
+        "name": "Kaymbo",
+        "createdon": "2014-12-29T09:48:48Z",
+        "description": "Suspendisse potenti."
+    },
+    "model": "playground.dummy"
+},
+{
+    "pk": 17,
+    "fields": {
+        "modifiedon": "2014-12-25T09:06:37Z",
+        "name": "Cogidoo",
+        "createdon": "2014-11-28T16:14:16Z",
+        "description": "In sagittis dui vel nisl."
+    },
+    "model": "playground.dummy"
+},
+{
+    "pk": 18,
+    "fields": {
+        "modifiedon": "2015-03-27T22:18:46Z",
+        "name": "Cogidoo",
+        "createdon": "2015-01-02T00:47:59Z",
+        "description": "Vivamus tortor. Duis mattis egestas metus. Aenean fermentum."
+    },
+    "model": "playground.dummy"
+},
+{
+    "pk": 19,
+    "fields": {
+        "modifiedon": "2015-01-13T06:07:13Z",
+        "name": "Devpulse",
+        "createdon": "2014-06-09T09:01:01Z",
+        "description": "Cras non velit nec nisi vulputate nonummy."
+    },
+    "model": "playground.dummy"
+},
+{
+    "pk": 20,
+    "fields": {
+        "modifiedon": "2014-06-15T18:37:38Z",
+        "name": "Realbridge",
+        "createdon": "2014-10-16T00:38:08Z",
+        "description": "Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh."
+    },
+    "model": "playground.dummy"
+},
+{
+    "pk": 21,
+    "fields": {
+        "modifiedon": "2014-09-06T14:58:45Z",
+        "name": "Realcube",
+        "createdon": "2014-06-30T18:14:18Z",
+        "description": "Vivamus vel nulla eget eros elementum pellentesque. Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla."
+    },
+    "model": "playground.dummy"
+},
+{
+    "pk": 22,
+    "fields": {
+        "modifiedon": "2015-03-18T05:13:03Z",
+        "name": "Viva",
+        "createdon": "2014-12-10T21:54:18Z",
+        "description": "Suspendisse potenti. Cras in purus eu magna vulputate luctus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
+    },
+    "model": "playground.dummy"
+},
+{
+    "pk": 23,
+    "fields": {
+        "modifiedon": "2015-02-10T08:31:49Z",
+        "name": "Yombu",
+        "createdon": "2015-03-15T21:44:14Z",
+        "description": "Nam dui. Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis."
+    },
+    "model": "playground.dummy"
+},
+{
+    "pk": 24,
+    "fields": {
+        "modifiedon": "2015-04-19T09:43:15Z",
+        "name": "Dablist",
+        "createdon": "2014-07-22T11:23:20Z",
+        "description": "In quis justo."
+    },
+    "model": "playground.dummy"
+},
+{
+    "pk": 25,
+    "fields": {
+        "modifiedon": "2014-08-04T16:18:39Z",
+        "name": "Trilia",
+        "createdon": "2015-04-17T16:24:57Z",
+        "description": "In sagittis dui vel nisl."
+    },
+    "model": "playground.dummy"
+},
+{
+    "pk": 26,
+    "fields": {
+        "modifiedon": "2015-01-30T00:28:02Z",
+        "name": "Youopia",
+        "createdon": "2014-07-28T03:27:56Z",
+        "description": "Donec vitae nisi. Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus."
+    },
+    "model": "playground.dummy"
+},
+{
+    "pk": 27,
+    "fields": {
+        "modifiedon": "2015-01-25T15:34:11Z",
+        "name": "Thoughtstorm",
+        "createdon": "2014-07-25T20:38:38Z",
+        "description": "Nulla tempus. Vivamus in felis eu sapien cursus vestibulum. Proin eu mi."
+    },
+    "model": "playground.dummy"
+},
+{
+    "pk": 28,
+    "fields": {
+        "modifiedon": "2014-08-18T19:06:34Z",
+        "name": "Fivebridge",
+        "createdon": "2014-07-11T22:19:31Z",
+        "description": "Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus."
+    },
+    "model": "playground.dummy"
+},
+{
+    "pk": 29,
+    "fields": {
+        "modifiedon": "2014-09-25T20:38:41Z",
+        "name": "Feednation",
+        "createdon": "2014-07-31T00:41:56Z",
+        "description": "Phasellus sit amet erat. Nulla tempus."
+    },
+    "model": "playground.dummy"
+},
+{
+    "pk": 30,
+    "fields": {
+        "modifiedon": "2014-12-07T15:10:51Z",
+        "name": "Blognation",
+        "createdon": "2014-08-09T06:20:43Z",
+        "description": "Mauris ullamcorper purus sit amet nulla."
+    },
+    "model": "playground.dummy"
+},
+{
+    "pk": 31,
+    "fields": {
+        "modifiedon": "2014-07-25T22:11:40Z",
+        "name": "Trilia",
+        "createdon": "2015-02-24T00:34:03Z",
+        "description": "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti."
+    },
+    "model": "playground.dummy"
+}
+]
